@@ -1,0 +1,15 @@
+numpy
+ipykernel
+wget
+matplotlib
+librosa
+black
+tensorflow
+torch
+pandas
+openl3
+audiomentations
+torch-geometric
+black[jupyter]
+pyyaml
+argparse
