@@ -1,12 +1,12 @@
 import os
+import argparse
 import numpy as np
 import pandas as pd
 import librosa
 import IPython.display as ipd
 
-
-def generate_mfcc(path_for_csv):
-    df = pd.read_csv("songs_genre.csv")
+def generate_mfcc(path_for_csv, emb_dim):
+    df = pd.read_csv(path_for_csv)
 
     unique_genres = sorted(list(set(df["genre"])))
     n_genres = len(unique_genres)
@@ -69,25 +69,30 @@ def generate_mfcc(path_for_csv):
     all_mel_specs = np.array(all_mel_specs)
     print(f"Shape of our data tensor : {all_mel_specs.shape}")
 
-    def compute_mfcc(fn_wav):
+    def compute_mfcc(fn_wav, emb_dim):
         y, sr = librosa.load(fn_wav)
-        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
+        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=emb_dim)
         return np.mean(mfcc, axis=1)
 
-    n_files = df.shape[0]
-    mfcc = np.zeros((n_files, 40))
+    def compute_mff_for_dataset(df, dir_dataset, emb_dim):
+        n_files = df.shape[0]
+        mfcc = np.zeros((n_files, emb_dim))
+        for n in range(n_files):
+            if n % 10 == 0:
+                print(f"{n+1}/{n_files}")
+            fn_wav = os.path.join(dir_dataset, df["fn_wav"][n])
+            mfcc[n, :] = compute_mfcc(fn_wav, emb_dim)
+        return mfcc
 
-    for n in range(n_files):
-        if n % 10 == 0:
-            print(f"{n+1}/{n_files}")
-        fn_wav = os.path.join(dir_dataset, df["fn_wav"][n])
-        mfcc[n, :] = compute_mfcc(fn_wav)
-
-    print("Feature extraction finished")
+    mfcc = compute_mff_for_dataset(df, dir_dataset, emb_dim)
     print(mfcc.shape)
 
     np.save("mfcc_embeddings.npy", mfcc)
 
-
 if __name__ == "__main__":
-    generate_mfcc("songs_genre.csv")
+    parser = argparse.ArgumentParser(description="Generate MFCC embeddings")
+    parser.add_argument("--embedding_size", type=int, default=40, help="Size of MFCC embedding")
+    path_for_csv = "songs_genre.csv"
+    args = parser.parse_args()
+
+    generate_mfcc(path_for_csv, emb_dim=args.embedding_size)
