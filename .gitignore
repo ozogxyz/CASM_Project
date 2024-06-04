@@ -77,6 +77,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+casm_project_2.ipynb
 
 # IPython
 profile_default/
@@ -167,4 +168,3 @@ cython_debug/
 *.csv
 *.zip
 *.wav
-*.ipynb
