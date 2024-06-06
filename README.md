@@ -1,3 +1,6 @@
+# How to use this project?
+    - Follow the steps sequentially and you can reproduce the result that i got
+
 # Generate MFCC embeddings
 python generate_mfcc.py
 
