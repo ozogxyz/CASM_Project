@@ -168,3 +168,13 @@ cython_debug/
 *.csv
 *.zip
 *.wav
+
+# Folders
+fma_small/
+fma_metadata/
+fma_small_songs/*
+fma_small_5s/*
+*.adjlist
+*.edgelist
+*.gml
+*.net
