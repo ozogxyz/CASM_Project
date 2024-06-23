@@ -167,12 +167,17 @@ cython_debug/
 *.csv
 *.zip
 *.wav
+*.mp3
 
 # Folders
 fma_small/
 fma_metadata/
 fma_small_songs/*
 fma_small_5s/*
+/home/ics/Documents/Education/Media_engg/Sem_1/CASM/Project/fma_small_dataset_example/fma_metadata/*
+/home/ics/Documents/Education/Media_engg/Sem_1/CASM/Project/fma_small_dataset_example/fma_small_5s/*
+/home/ics/Documents/Education/Media_engg/Sem_1/CASM/Project/fma_small_dataset_example/fma_small_songs/*
+/home/ics/Documents/Education/Media_engg/Sem_1/CASM/Project/fma_small_dataset/fma_small_songs/*
 *.adjlist
 *.edgelist
 *.gml
